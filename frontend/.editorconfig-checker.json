@@ -1,0 +1,5 @@
+{
+  "Exclude": [
+    "src/readme-oss.html"
+  ]
+}

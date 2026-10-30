@@ -1,0 +1,107 @@
+onboarding = false
+
+[ui]
+window_title = "herdr: {workspace}"
+
+[ui.toast.clipboard]
+enabled = false
+
+[theme]
+name = "catppuccin-latte"
+
+[theme.custom]
+panel_bg = "#fafafa"
+sidebar_bg = "#f0f0f2"
+active_row_bg = "#e2e4ea"
+selection_bg = "#ccd0da"
+text = "#1c1e2a"
+subtext0 = "#3c3f54"
+accent = "#3277f5"
+blue = "#3277f5"
+red = "#fa0032"
+green = "#0da04d"
+yellow = "#e06100"
+peach = "#d65a05"
+teal = "#0f898f"
+mauve = "#9e4bec"
+
+[worktrees]
+directory = "~/Code/Vilocify/worktrees"
+
+[keys]
+switch_workspace = "ctrl+1..9"
+previous_workspace = "ctrl+alt+h"
+next_workspace = "ctrl+alt+l"
+new_workspace = ["prefix+shift+n", "ctrl+shift+t"]
+close_workspace = ["prefix+shift+d", "ctrl+shift+q"]
+rename_workspace = ["prefix+shift+w", "ctrl+alt+shift+t"]
+new_worktree = ["prefix+shift+g", "ctrl+shift+g"]
+open_worktree = "ctrl+shift+o"
+remove_worktree = "ctrl+shift+x"
+new_tab = ["prefix+c", "ctrl+shift+n"]
+rename_tab = ["prefix+shift+t", "ctrl+shift+m"]
+previous_tab = ["prefix+p", "ctrl+shift+h"]
+next_tab = ["prefix+n", "ctrl+shift+l"]
+split_vertical = ["prefix+v", "ctrl+shift+d", "ctrl+shift+enter"]
+split_horizontal = ["prefix+minus", "ctrl+shift+s"]
+close_pane = ["prefix+x", "ctrl+shift+w"]
+swap_pane_left = ["prefix+shift+h", "ctrl+alt+shift+h"]
+swap_pane_down = ["prefix+shift+j", "ctrl+alt+shift+j"]
+swap_pane_up = ["prefix+shift+k", "ctrl+alt+shift+k"]
+swap_pane_right = ["prefix+shift+l", "ctrl+alt+shift+l"]
+previous_agent = "alt+shift+h"
+next_agent = "alt+shift+l"
+cycle_pane_previous = ["prefix+shift+tab", "ctrl+shift+["]
+cycle_pane_next = ["prefix+tab", "ctrl+shift+]"]
+zoom = ["prefix+z", "f6"]
+resize_mode = ["prefix+r", "ctrl+shift+r"]
+toggle_sidebar = ["prefix+b", "ctrl+shift+b"]
+edit_scrollback = ["prefix+e", "ctrl+shift+f"]
+
+[[keys.command]]
+key = "ctrl+h"
+type = "plugin_action"
+command = "smart-splits.nvim.left"
+description = "navigate left (vim/herdr)"
+
+[[keys.command]]
+key = "ctrl+j"
+type = "plugin_action"
+command = "smart-splits.nvim.down"
+description = "navigate down (vim/herdr)"
+
+[[keys.command]]
+key = "ctrl+k"
+type = "plugin_action"
+command = "smart-splits.nvim.up"
+description = "navigate up (vim/herdr)"
+
+[[keys.command]]
+key = "ctrl+l"
+type = "plugin_action"
+command = "smart-splits.nvim.right"
+description = "navigate right (vim/herdr)"
+
+[[keys.command]]
+key = "alt+h"
+type = "plugin_action"
+command = "smart-resize.left"
+description = "resize left (vim/herdr)"
+
+[[keys.command]]
+key = "alt+j"
+type = "plugin_action"
+command = "smart-resize.down"
+description = "resize down (vim/herdr)"
+
+[[keys.command]]
+key = "alt+k"
+type = "plugin_action"
+command = "smart-resize.up"
+description = "resize up (vim/herdr)"
+
+[[keys.command]]
+key = "alt+l"
+type = "plugin_action"
+command = "smart-resize.right"
+description = "resize right (vim/herdr)"

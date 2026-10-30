@@ -1,0 +1,83 @@
+direction: right
+
+vars: {
+  d2-config: {
+    theme-id: 300
+  }
+}
+
+client: {
+  label: "Client + Router"
+  shape: rectangle
+
+  user: "User opens protected URL\n(e.g. /dashboard)"
+  router: "Angular Router"
+  loggedInGuard: "loggedInGuard"
+  membershipGuard: "multitenancyMembershipGuard"
+  rememberPath: "RememberPathService"
+  navSvc: "NavigationService"
+
+  user -> router: navigate()
+  router -> loggedInGuard: canActivate
+
+  loggedInLoggedIn: "loginState = LoggedIn"
+  loggedInLoggedOut: "loginState = LoggedOut"
+  loggedInPartial: "loginState = PartiallyLoggedIn"
+
+  loggedInGuard -> loggedInLoggedIn: switch(session.loginState)
+  loggedInGuard -> loggedInLoggedOut
+  loggedInGuard -> loggedInPartial
+
+  loggedInLoggedOut -> rememberPath: storePath(url)
+  rememberPath -> navSvc
+  navSvc -> loginRedirect: parseUrl('/login')
+
+  loggedInPartial -> navSvc
+  navSvc -> membershipRedirect: parseUrl('/membership-selection')
+
+  loggedInLoggedIn -> membershipGuard: next guard
+  membershipGuard -> referralCheck: queryParam 'membership' mismatch?
+  referralCheck -> referralRedirect: yes -> parseUrl('/referral-error')
+  referralCheck -> dashboardAllowed: no -> route activates
+
+  loginRedirect: {
+    shape: oval
+    style.fill: "#FFE7E7"
+  }
+  membershipRedirect: {
+    shape: oval
+    style.fill: "#FFF2D5"
+  }
+  referralRedirect: {
+    shape: oval
+    style.fill: "#FFE7E7"
+  }
+  dashboardAllowed: {
+    shape: oval
+    style.fill: "#E6FFEE"
+  }
+}
+
+membership_selection: {
+  label: "Membership-Selection Route Resolver"
+  shape: rectangle
+
+  resolverStart: "resolve availableMemberships"
+  listCall: "SessionHttpService.index(null)"
+  oneMembership: "availableMemberships.length === 1"
+  updateCurrent: "SessionHttpService.update('current', membershipId)"
+  setSession: "CurrentSession.setCurrentSession(session)"
+  consumePath: "RememberPathService.consumePath()"
+  redirectToRemembered: "RedirectCommand(remembered || /dashboard)"
+  showSelection: "return memberships list\n(render SelectMembershipComponent)"
+
+  resolverStart -> listCall
+  listCall -> oneMembership
+  oneMembership -> updateCurrent: true
+  updateCurrent -> setSession
+  setSession -> consumePath
+  consumePath -> redirectToRemembered
+  oneMembership -> showSelection: false
+}
+
+client.membershipRedirect -> membership_selection.resolverStart: user is sent to /membership-selection

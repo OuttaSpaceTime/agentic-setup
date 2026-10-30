@@ -1,0 +1,211 @@
+#!/usr/bin/env ruby
+# Runs the tests for your change, then gates 100% patch coverage against BASE (main) with bin/patch_coverage.
+# Every run records which test ran which line in coverage/map/coverage.json. That needs the local
+# .simplecov: under TRACK_TESTS it turns on track_tests, preloads gems so Coverage skips them, and
+# writes only the JSON report, silently.
+#
+#   bin/test                   whole suite, gates every line the branch changed, rebuilds the map
+#   bin/test --affected        simplecov affected: tests touching any changed file, gates every changed line
+#   bin/test app/models/user.rb test/models/user_test.rb
+#                              scoped: tests of the changed methods, gates only the named app/lib files
+#
+# Selection rules, fallbacks and refused arguments: `## bin/test` in .claude/rules/800-quality-tools.md.
+#
+# Map recording is slow on Ruby 4.0.6 (bugs.ruby-lang.org/issues/22250, fixed by ruby/ruby#18406);
+# once on a Ruby with the fix, re-measure and likely drop the .simplecov gem preload.
+require('rubygems')
+require('bundler/setup')
+require('fileutils')
+require('json')
+require('prism')
+require('simplecov')
+
+if Gem::Version.new(SimpleCov::VERSION) < Gem::Version.new('1.3')
+  abort(
+    'bin/test needs simplecov >= 1.3 for its test map and patch coverage, ' \
+      "but this branch has #{SimpleCov::VERSION}. Rebase onto main, or use bin/rails test here."
+  )
+end
+
+require('simplecov/cli/affected/changed_files')
+require('simplecov/cli/patch/changed_lines')
+require('simplecov/cli/tests')
+
+BASE = ENV.fetch('CI_MERGE_REQUEST_DIFF_BASE_SHA', 'main')
+COVERAGE = 'coverage/coverage.json'.freeze
+RUN_RESULTSET = 'coverage/.resultset.json'.freeze
+SCOPED_COVERAGE = 'tmp/scoped_coverage.json'.freeze
+# Env for the test process only: under TRACK_TESTS, .simplecov would preload the app into simplecov affected too.
+TEST_RUN = %w[env CI=1 TRACK_TESTS=1 bin/rails test].freeze
+
+class Arguments
+  attr_reader(:code_paths, :test_paths)
+
+  def initialize(argv)
+    @affected = argv.include?('--affected')
+    @paths = argv - ['--affected']
+    @code_paths, other_paths = @paths.partition { |path| path.start_with?('app/', 'lib/') }
+    @test_paths, @skipped = other_paths.partition { |path| path.end_with?('_test.rb') }
+  end
+
+  def validate!
+    filters = @paths.select { |path| path.start_with?('-') || path.match?(/:\d+(-\d+)?\z/) }
+    if filters.any?
+      abort(
+        "bin/test: #{filters.join(' ')} not supported - bin/test takes file paths only. " \
+          'Use bin/rails test to run a single test.'
+      )
+    end
+    abort('bin/test: --affected takes no paths - it finds the changed files itself') if @affected && @paths.any?
+    warn("bin/test: skipping #{@skipped.join(', ')} - not an app/lib or *_test.rb file") if @skipped.any?
+  end
+
+  def affected? = @affected
+
+  def scoped? = @paths.any?
+end
+
+class TestMap
+  DIR = 'coverage/map'.freeze
+  PATH = "#{DIR}/coverage.json".freeze
+  RESULTSET = "#{DIR}/.resultset.json".freeze
+  COMMAND = 'test_map'.freeze
+
+  def self.load
+    new(File.file?(PATH) ? JSON.parse(File.read(PATH)) : { 'coverage' => {}, 'contexts' => [] })
+  end
+
+  # The map is an index, not a run report: an attribution stays true until the code changes,
+  # so it accumulates across runs rather than expiring with merge_timeout.
+  def self.record(replace:)
+    SimpleCov.coverage_dir(DIR)
+    sources = replace ? [RUN_RESULTSET] : [RUN_RESULTSET, RESULTSET]
+    merged = SimpleCov::ResultMerger.merge_results(*sources, ignore_timeout: true)
+    abort("bin/test: no per-test contexts recorded, #{PATH} kept - is .simplecov there?") unless merged.contexts
+
+    FileUtils.rm_f(RESULTSET) if replace
+    merged.command_name = COMMAND
+    merged.command_names = [COMMAND]
+    SimpleCov::ResultMerger.store_result(merged)
+    SimpleCov::Formatter::JSONFormatter.new(silent: true).format(merged)
+  end
+
+  def initialize(document)
+    @coverage = document.fetch('coverage')
+    @contexts = document.fetch('contexts')
+  end
+
+  def include?(path) = @coverage.key?(path)
+
+  def source(path) = @coverage.fetch(path).fetch('source').join("\n")
+
+  def test_files(path, lines = [nil])
+    table = SimpleCov::CLI::Tests.decode_table(@coverage.fetch(path).fetch('contexts', {}), @contexts.size)
+    ids = lines.flat_map { |line| SimpleCov::CLI::Tests.ids_from(table, @contexts, line) }
+    ids.map { it.rpartition(':').first }.uniq
+  end
+end
+
+# `def` and `end` lines run at eager load, before any test, so a method's tests are found through all of its
+# lines, located by name because the map may predate the edits that shifted them.
+class ChangedMethods
+  def initialize(path, lines)
+    source = File.readlines(path)
+    code_lines = lines.reject { |line| source[line - 1].to_s.strip.then { it.empty? || it.start_with?('#') } }
+    definitions = definitions(source.join)
+    @names = code_lines.map { |line| innermost(definitions, line)&.name }
+  end
+
+  def outside_methods? = @names.include?(nil)
+
+  def recorded_lines(recorded_source)
+    recorded = definitions(recorded_source).select { @names.include?(it.name) }
+    recorded.flat_map { (it.start_line..it.end_line).to_a }
+  end
+
+  private
+
+  def definitions(source) = Prism.parse(source).value.breadth_first_search_all { it.is_a?(Prism::DefNode) }
+
+  def innermost(definitions, line)
+    enclosing = definitions.select { |node| (node.start_line..node.end_line).cover?(line) }
+    enclosing.min_by { |node| node.end_line - node.start_line }
+  end
+end
+
+class Selection
+  def initialize(arguments, map, changes, changed_files)
+    @arguments = arguments
+    @map = map
+    @changes = changes
+    @changed_files = changed_files
+  end
+
+  def files
+    mapped = @arguments.code_paths.select { @map.include?(it) }
+    selected = existing(@arguments.test_paths + changed_tests + mapped.flat_map { covering(it) })
+    selected = existing(mapped.flat_map { @map.test_files(it) }) if selected.empty?
+    warn("bin/test: nothing selected - running the whole suite to rebuild #{TestMap::PATH}") if selected.empty?
+    selected
+  end
+
+  private
+
+  def changed_tests
+    @changed_files.select { |path| path.start_with?('test/') && path.end_with?('_test.rb') }
+  end
+
+  def covering(path)
+    lines = @changes[path]
+    return @map.test_files(path) unless lines.is_a?(Array)
+
+    methods = ChangedMethods.new(path, lines)
+    return @map.test_files(path) if methods.outside_methods?
+
+    @map.test_files(path, methods.recorded_lines(@map.source(path)))
+  end
+
+  def existing(paths)
+    paths.uniq.select { |path| File.file?(path) }
+  end
+end
+
+def patch_gate(arguments)
+  return puts('bin/test: gate skipped - no app/lib files named') if arguments.scoped? && arguments.code_paths.empty?
+
+  input = arguments.scoped? ? scoped_coverage(arguments.code_paths) : COVERAGE
+  exec('bin/patch_coverage', '--input', input)
+end
+
+def scoped_coverage(code_paths)
+  document = JSON.parse(File.read(COVERAGE))
+  document['coverage'] = document.fetch('coverage').slice(*code_paths)
+  File.write(SCOPED_COVERAGE, JSON.generate(document))
+  SCOPED_COVERAGE
+end
+
+arguments = Arguments.new(ARGV)
+arguments.validate!
+
+selected = []
+if arguments.scoped?
+  diff = SimpleCov::CLI::Patch::ChangedLines.call(BASE, find_renames: false, stderr: $stderr) or abort
+  files = SimpleCov::CLI::Affected::ChangedFiles.call(BASE, $stderr) or abort
+  selected = Selection.new(arguments, TestMap.load, diff.fetch(:changes), files.fetch(:changed)).files
+end
+
+runner =
+  if arguments.affected?
+    ['bundle', 'exec', 'simplecov', 'affected', '--base', BASE, '--input', TestMap::PATH, '--run', *TEST_RUN]
+  else
+    [*TEST_RUN, *selected]
+  end
+
+# Results merge by command_name within merge_timeout, so a run using fewer
+# subprocesses than the last one would inherit its stale worker results.
+FileUtils.rm_f(RUN_RESULTSET)
+
+abort unless system(*runner)
+
+TestMap.record(replace: selected.empty? && !arguments.affected?)
+patch_gate(arguments)

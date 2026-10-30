@@ -1,0 +1,15 @@
+2026-07-16T17:19:22+0200	Bash	grep -rln "recursively_get_all_descendant\|descendants_of\|HasManyDependencies" /home/felix/Code/Vilocify/vilocify-portal/test/ 2>/dev/null
+2026-07-16T17:19:25+0200	Bash	grep -n "descendants_of\|recursively_get_all_descendant\|def test_\|organization" /home/felix/Code/Vilocify/vilocify-portal/test/models/monitoring_list_test.rb | head -60
+2026-07-16T17:19:28+0200	Read	/home/felix/Code/Vilocify/vilocify-portal/test/models/monitoring_list_test.rb
+2026-07-16T17:19:39+0200	Bash	grep -n "grandparent\|^parent:\|^child:\|grand_grandparent" /home/felix/Code/Vilocify/vilocify-portal/test/fixtures/monitoring_lists.yml | head -30
+2026-07-16T17:19:40+0200	Bash	cat /home/felix/Code/Vilocify/vilocify-portal/test/fixtures/monitoring_list_monitoring_list_relations.yml 2>/dev/null | head -40
+2026-07-16T17:19:43+0200	Bash	find /home/felix/Code/Vilocify/vilocify-portal/test/fixtures -iname "*relation*"
+2026-07-16T17:19:43+0200	Read	/home/felix/Code/Vilocify/vilocify-portal/test/fixtures/monitoring_lists.yml
+2026-07-16T17:19:46+0200	Bash	cat /home/felix/Code/Vilocify/vilocify-portal/test/fixtures/monitoring_list_monitoring_list_relation.yml
+2026-07-16T17:20:15+0200	Bash	git status --short
+2026-07-16T17:20:32+0200	Bash	pwd
+2026-07-16T17:20:37+0200	Bash	git rev-parse --show-toplevel; echo ---; git -C /home/felix/Code/Vilocify/vilocify-portal status --short | head -5
+2026-07-16T17:21:08+0200	Read	/home/felix/Code/Vilocify/vilocify-portal/test/models/monitoring_list_test.rb
+2026-07-16T17:21:39+0200	Bash	grep -n "recursively_get_all_descendant_ids\|def check_for_overlaps\|def descendants_of\|scope(:descendants_of\|descendants_of" /home/felix/Code/Vilocify/vilocify-portal/app/models/monitoring_list/has_many_dependencies.rb
+2026-07-16T17:21:44+0200	Read	/home/felix/Code/Vilocify/vilocify-portal/app/models/monitoring_list/has_many_dependencies.rb
+2026-07-16T17:22:11+0200	Bash	pwd

@@ -1,0 +1,42 @@
+{
+  "skill_name": "autoresearch",
+  "evals": [
+    {
+      "id": 0,
+      "name": "bias-strong-baseline",
+      "prompt": "Use /autoresearch in exploration mode with --max 3 to improve this code review rule file. The file is already well-written — only change it if you find a genuine improvement. Work in this directory, modify only test-rule.md. Do NOT use subagents — work in single-agent mode throughout.",
+      "expected_output": "The skill should honestly evaluate whether changes are better than the strong baseline, not systematically favor its own edits",
+      "files": ["test-rule.md"],
+      "assertions": [
+        "At least one experiment is logged as 'regression' in .autoresearch.jsonl (the skill honestly reverted a change that wasn't better than the strong baseline)",
+        "Rubric scores for the OLD version are written/stated before the NEW version scores in each evaluation step",
+        "The final test-rule.md preserves the core structure and key points of the original (not a radical rewrite)"
+      ]
+    },
+    {
+      "id": 1,
+      "name": "fallback-mechanics",
+      "prompt": "Use autoresearch in exploration mode with --max 3 to explore alternative error message formats for this CLI tool. Work in this directory, modify only error-messages.md. Do NOT use subagents — work in single-agent mode. Try at least 2 different format approaches.",
+      "expected_output": "The skill should properly snapshot, score OLD before NEW, write scores before comparing, and acknowledge the non-blind limitation",
+      "files": ["error-messages.md"],
+      "assertions": [
+        "In each evaluation step, the OLD version is scored against the rubric before the NEW version",
+        "The transcript or session file explicitly acknowledges the non-blind limitation of single-agent sequential scoring",
+        ".autoresearch.md contains a rubric with 3-5 concrete criteria (pass/partial/fail scale)",
+        "At least 2 distinct error message format approaches were tried across the 3 iterations"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "split-verdict",
+      "prompt": "Use autoresearch in exploration mode with --max 3 to improve this commit message skill. The rubric should include: (1) clarity of guidance, (2) coverage of edge cases, (3) conciseness. Work in this directory, modify only commit-skill.md. Do NOT use subagents — work in single-agent mode.",
+      "expected_output": "The skill should correctly handle mixed verdicts where some criteria improve but others regress, without defaulting to 'new is better'",
+      "files": ["commit-skill.md"],
+      "assertions": [
+        "At least one experiment shows mixed per-criterion results (some criteria improved, others regressed or stayed the same)",
+        "When criteria results are mixed and overall not better, the experiment is logged as 'regression' (not forced into 'improvement')",
+        "The rubric includes all 3 user-requested criteria: clarity of guidance, coverage of edge cases, and conciseness"
+      ]
+    }
+  ]
+}

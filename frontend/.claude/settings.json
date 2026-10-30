@@ -1,0 +1,12 @@
+{
+  "effortLevel": "high",
+  "autoDreamEnabled": false,
+  "promptSuggestionEnabled": false,
+  "permissions": {
+    "allow": [
+      "Bash(npx ng:*)",
+      "Bash(node strict-migrate.mjs)",
+      "Bash(bash .claude/scripts/dev-server*)"
+    ]
+  }
+}

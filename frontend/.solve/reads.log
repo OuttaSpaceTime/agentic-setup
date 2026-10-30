@@ -1,0 +1,183 @@
+2026-07-06T16:15:22+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/features/inbox/pages/inbox/inbox.component.ts
+2026-07-06T16:15:22+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/core/formvalues.ts
+2026-07-06T16:15:44+0200	Bash	rg -n "mergeParams|class FilterParamRouter" src/app/core/services/filter-param-router/filter-param-router.service.ts
+2026-07-06T16:15:44+0200	Bash	rg -n "filter\(|class InboxListStateService" src/app/features/inbox/inbox-list-state.service.ts
+2026-07-06T16:15:49+0200	Bash	rg -n "class FilterFormBuilder" -A 40 src/app/core/services/filter-form-builder/filter-form-builder.service.ts
+2026-07-06T16:16:22+0200	Bash	grep -rn "registerOnChange\|writeValue" src/app/ node_modules/@siemens/ix-angular/standalone 2>/dev/null | grep -i "select-value\|text-value" | head -30
+2026-07-06T16:16:25+0200	Bash	find /home/felix/Code/Vilocify/vilocify-frontend/node_modules/@siemens/ix-angular -iname "*value-accessor*" 2>/dev/null
+2026-07-06T16:18:02+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/core/services/filter-param-router/filter-param-router.service.ts
+2026-07-06T16:18:08+0200	Bash	rg -n "queryParams" src/app/features/inbox src/app/core/services/filter-form-builder src/app/shared/utils/convert-empty-to-null src/app/shared/utils/compact 2>/dev/null
+2026-07-06T16:18:16+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/features/inbox/pages/inbox/inbox.component.html
+2026-07-06T16:18:25+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/features/inbox/components/read-button-group/read-button.component.ts
+2026-07-06T16:20:18+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/shared/services/abstract-resource-list-state.service.ts
+2026-07-06T16:20:22+0200	Bash	find src -name "abstract-resource-list-state.service.ts"
+2026-07-06T16:20:25+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/shared/services/list-state/abstract-resource-list-state.service.ts
+2026-07-13T11:53:40+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/core/layout/components/sidebar/sidebar.component.html
+2026-07-13T11:54:20+0200	Bash	ls src/app/core/layout/components/sidebar/
+2026-07-13T11:54:25+0200	Bash	grep -n -iE "corporate|privacy|terms of|third party|vilocify support|ongoing deployment|API documentation" src/app/core/layout/components/sidebar/sidebar.component.spec.ts
+2026-07-13T11:54:56+0200	Bash	grep -rn -i "legal information\|about &\|about and legal" src/app/core/layout/components/sidebar/
+2026-07-13T11:55:00+0200	Bash	grep -rn -i "legal information\|legal informations" src/ --include=*.html --include=*.ts | grep -v spec
+2026-07-13T11:55:03+0200	Bash	grep -rni "legal information" src/
+2026-07-13T11:55:09+0200	Bash	grep -rni "about &\|legal information\|about and legal" node_modules/@siemens/ix/dist/ 2>/dev/null | head -20
+2026-07-13T12:59:18+0200	Bash	git --no-pager diff HEAD -- src/app/core/layout/components/sidebar/sidebar.component.html && grep -rn "legal information\|About &" src/app --include=*.html --include=*.ts -i
+2026-07-13T12:59:41+0200	Bash	grep -rni "legal information\|About &" src/app/core/layout/components/sidebar/
+2026-07-13T12:59:48+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/core/layout/components/sidebar/sidebar.component.html
+2026-07-13T12:59:58+0200	Bash	grep -rni "menu-about\|legal information\|About &" node_modules/@siemens/ix/dist/collection/components/menu-about/*.ts node_modules/@siemens/ix/dist/types/components.d.ts 2>/dev/null | head -40
+2026-07-13T13:00:02+0200	Bash	grep -rlni "legal information" node_modules/@siemens/ix/dist/ 2>/dev/null | head; echo "---labels---"; grep -rni "legal" node_modules/@siemens/ix/dist/collection/global/i18n/en.json 2>/dev/null
+2026-07-13T13:00:06+0200	Bash	grep -ni "legal information\|labelAbout\|label" node_modules/@siemens/ix/dist/collection/components/menu-about/menu-about.js | head -20; echo "=== menu.js ==="; grep -ni "legal information\|about" node_modules/@siemens/ix/dist/collection/components/menu/menu.js | head
+2026-07-13T13:00:22+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/core/layout/components/sidebar/sidebar.component.html
+2026-07-16T09:07:28+0200	Bash	git log --oneline -5 && echo "---FILES in last commit (JSON body)---" && git show --stat 1eb2892a --oneline | head -40
+2026-07-16T09:07:28+0200	Bash	grep -rl "ListResourceState" src/app --include=*.ts | head -40
+2026-07-16T09:07:32+0200	Bash	grep -rl "ListResourceState" src/app | head -40
+2026-07-16T09:07:33+0200	Bash	ls src/app/features/inbox/services/ && echo "---" && ls src/app/features/inbox/
+2026-07-16T09:07:38+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/features/inbox/services/inbox-item-detail.service.ts
+2026-07-16T09:07:39+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/shared/services/list-state/abstract-resource-list-state.service.ts
+2026-07-16T09:07:57+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/features/inbox/services/membership-expiry-actions.service.ts
+2026-07-16T09:07:58+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/features/inbox/inbox-list-state.service.ts
+2026-07-16T09:07:59+0200	Bash	grep -n "InboxDetailEntries\|IInboxItem\|InboxItem" src/app/shared/jsonapi/resources.ts | head -40
+2026-07-16T09:08:06+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/shared/jsonapi/resources.ts
+2026-07-16T09:09:03+0200	Bash	grep -rn "updateEntry\|MembershipExpiryActionsService\|InboxItemDetailService\|patchWithLoading\|deleteWithLoading" src/app/features/inbox --include=*.ts | grep -v "\.spec\.ts"
+2026-07-16T09:09:04+0200	Bash	git show 1a8e8c3e --stat | head -25
+2026-07-16T09:09:11+0200	Bash	grep -rn "updateEntry\|MembershipExpiryActionsService\|InboxItemDetailService" src/app/features/inbox | grep -v "spec.ts"
+2026-07-16T10:06:45+0200	Bash	grep -n "patch\|index\|delete\|jsonapiResource\|export" src/app/shared/jsonapi/client.ts | head -40
+2026-07-16T10:06:45+0200	Bash	grep -n "update\|patch\|class MembershipsService\|jsonapiResource\|memberships" src/app/features/memberships/services/memberships/memberships.service.ts | head -30
+2026-07-16T10:06:50+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/shared/jsonapi/client.ts
+2026-07-16T10:06:53+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/features/memberships/services/memberships/memberships.service.ts
+2026-07-16T10:11:21+0200	Bash	cd /home/felix/Code/Vilocify/vilocify-frontend/.solve/tasks/2026-07-16-inbox-spike-issue 2>/dev/null && git rev-parse --show-toplevel 2>&1 | head -1; echo "---"; ls -a /home/felix/Code/Vilocify/vilocify-frontend/.solve/tasks/2026-07-16-inbox-spike-issue
+2026-07-16T17:37:28+0200	Bash	grep -ril "membership" --include="*.ts" --include="*.html" src | head -50
+2026-07-16T17:37:28+0200	Bash	grep -rn "status-indicator" --include="*.ts" --include="*.html" src
+2026-07-16T17:37:32+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/features/memberships/components/membership-status-box/membership-status-box.component.html
+2026-07-16T17:37:32+0200	Bash	find /home/felix/Code/Vilocify/vilocify-frontend/src/app/features/memberships/components/membership-status-box -type f
+2026-07-16T17:37:35+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/features/memberships/components/membership-status-box/membership-status-box.component.ts
+2026-07-16T17:37:36+0200	Bash	grep -n "check\|success\|active" /home/felix/Code/Vilocify/vilocify-frontend/src/icons.ts
+2026-07-16T17:37:40+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/shared/utils/percentage-to-color/percentage-to-color.ts
+2026-07-16T17:37:41+0200	Bash	grep -rn "ix-icon" --include="*.html" /home/felix/Code/Vilocify/vilocify-frontend/src | grep -i "size=\"17\"\|status-indicator\|checkmark\|check\b"
+2026-07-16T17:37:46+0200	Bash	grep -n "icon" /home/felix/Code/Vilocify/vilocify-frontend/src/icons.ts | grep -i "check\|success\|circle"
+2026-07-16T17:37:46+0200	Bash	grep -rn "ix-progress-indicator" --include="*.html" -r /home/felix/Code/Vilocify/vilocify-frontend/src
+2026-07-16T17:37:52+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/icons.ts
+2026-07-16T17:38:07+0200	Bash	grep -rn "app-membership-status-box" -r /home/felix/Code/Vilocify/vilocify-frontend/src
+2026-07-16T17:38:08+0200	Bash	find /home/felix/Code/Vilocify/vilocify-frontend/node_modules/@siemens/ix-icons/icons -iname "*success*" -o -iname "*error*" -o -iname "*warning*" 2>/dev/null | head -30
+2026-07-16T17:38:11+0200	Bash	find /home/felix/Code/Vilocify/vilocify-frontend/node_modules/@siemens/ix-icons -maxdepth 2 -type d 2>/dev/null; echo ---; find /home/felix/Code/Vilocify/vilocify-frontend/node_modules/@siemens/ix-icons -iname "icons*" -maxdepth 2 2>/dev/null
+2026-07-16T17:38:12+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/features/memberships/pages/memberships/memberships.component.html
+2026-07-16T17:38:18+0200	Bash	grep -rn "No icon was provided" /home/felix/Code/Vilocify/vilocify-frontend/node_modules/@siemens/ix-icons 2>/dev/null | head -5; echo ---; grep -rn "No icon was provided" /home/felix/Code/Vilocify/vilocify-frontend/node_modules/@siemens 2>/dev/null | head -5
+2026-07-16T17:38:18+0200	Bash	ls /home/felix/Code/Vilocify/vilocify-frontend/node_modules/@siemens/ix-icons/icons | grep -iE "^success|^check|^error|^warning"
+2026-07-16T17:38:23+0200	Bash	ls /home/felix/Code/Vilocify/vilocify-frontend/node_modules/@siemens/ix-icons/icons | wc -l; ls /home/felix/Code/Vilocify/vilocify-frontend/node_modules/@siemens/ix-icons/icons | head -20
+2026-07-16T17:38:30+0200	Bash	grep -o "iconSuccess[^,;]*" /home/felix/Code/Vilocify/vilocify-frontend/node_modules/@siemens/ix-icons/icons/index.mjs | head -5
+echo ---
+grep -o "iconError[^,;]*" /home/felix/Code/Vilocify/vilocify-frontend/node_modules/@siemens/ix-icons/icons/index.mjs | head -5
+echo ---
+grep -o "iconWarning[^,;]*" /home/felix/Code/Vilocify/vilocify-frontend/node_modules/@siemens/ix-icons/icons/index.mjs | head -5
+echo ---
+grep -o "iconCheck[^,;]*" /home/felix/Code/Vilocify/vilocify-frontend/node_modules/@siemens/ix-icons/icons/index.mjs | head -5
+2026-07-16T17:38:40+0200	Bash	grep -rn "addIcons" /home/felix/Code/Vilocify/vilocify-frontend/node_modules/@siemens/ix-icons/dist/esm/*.js 2>/dev/null | head -20
+2026-07-16T17:38:43+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/node_modules/@siemens/ix-icons/dist/esm/index.js
+2026-07-16T17:39:03+0200	Bash	grep -rln "membershipsLimit" /home/felix/Code/Vilocify/vilocify-frontend/src --include="*.ts" | head -20
+2026-07-16T17:39:06+0200	Bash	grep -n "membershipsLimit" /home/felix/Code/Vilocify/vilocify-frontend/src/app/features/memberships/pages/memberships/memberships.component.ts
+2026-07-16T17:39:07+0200	Bash	grep -rln "MembershipsLimit" /home/felix/Code/Vilocify/vilocify-frontend/src --include="*.ts"
+2026-07-16T17:39:10+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/features/memberships/services/memberships-limit/memberships-limit.service.ts
+2026-07-16T17:39:25+0200	Bash	grep -rn "<ix-icon" --include="*.html" /home/felix/Code/Vilocify/vilocify-frontend/src | grep -v "membership-status-box"
+2026-07-16T17:39:25+0200	Bash	grep -rln "StatusIcon\|statusIcon\|iconMap\|ICON_MAP" --include="*.ts" /home/felix/Code/Vilocify/vilocify-frontend/src
+2026-07-16T17:39:28+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/features/component-requests/components/component-request-status/component-request-status.component.ts
+2026-07-16T17:39:29+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/features/component-requests/components/component-request-status/component-request-status.component.html
+2026-07-16T17:44:59+0200	Bash	grep -rn "status-indicator" /home/felix/Code/Vilocify/vilocify-frontend/src --include=*.html -l
+2026-07-16T17:45:01+0200	Bash	grep -rln "status-indicator" /home/felix/Code/Vilocify/vilocify-frontend/src
+2026-07-16T17:45:03+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/features/memberships/components/membership-status-box/membership-status-box.component.html
+2026-07-16T17:45:09+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/features/memberships/components/membership-status-box/membership-status-box.component.ts
+2026-07-16T17:45:14+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/shared/utils/percentage-to-color/percentage-to-color.ts
+2026-07-16T17:45:22+0200	Bash	grep -n -i "check\|warning\|error\|alarm\|circle" /home/felix/Code/Vilocify/vilocify-frontend/src/icons.ts
+2026-07-16T17:45:27+0200	Bash	grep -rln "percentageToState\|percentageToColor" /home/felix/Code/Vilocify/vilocify-frontend/src
+2026-07-16T17:45:31+0200	Bash	find /home/felix/Code/Vilocify/vilocify-frontend/src/app/features/memberships/components/membership-status-box -type f
+2026-07-16T17:45:34+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/features/memberships/components/membership-status-box/membership-status-box.component.spec.ts
+2026-07-16T17:46:06+0200	Bash	git log --follow -p -- src/app/features/memberships/components/membership-status-box/membership-status-box.component.html | head -300
+2026-07-16T17:46:10+0200	Bash	git log --follow -p -- src/app/shared/utils/percentage-to-color/percentage-to-color.ts
+2026-07-16T17:46:16+0200	Bash	git show 4a2824903372f496a42aa61b6510712826360972:src/app/features/memberships/components/membership-status-box/membership-status-box.component.ts
+2026-07-16T17:49:45+0200	Bash	grep -n -i "success" /home/felix/Code/Vilocify/vilocify-frontend/src/icons.ts
+2026-07-16T17:49:50+0200	Bash	git log -p --follow -- src/icons.ts | grep -n -B2 -A2 "iconSuccess" | head -40
+2026-07-16T17:49:56+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/icons.ts
+2026-07-16T17:50:06+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/icons.ts
+2026-07-16T17:50:11+0200	Bash	git status --short; echo ---; git diff -- src/icons.ts
+2026-07-16T17:50:17+0200	Bash	grep -rn "iconSuccess\s*=" /home/felix/Code/Vilocify/vilocify-frontend/node_modules/@siemens/ix-icons/dist/types/icons.d.ts 2>/dev/null | head -5
+find /home/felix/Code/Vilocify/vilocify-frontend/node_modules/@siemens/ix-icons -iname "*success*" | head -20
+2026-07-16T17:50:22+0200	Bash	git log --follow -S"iconSuccess" --oneline -- src/icons.ts
+2026-07-16T17:50:28+0200	Bash	git log -1 --format="%ad %H" c3ae65dc; echo ---; git log --oneline main -1
+2026-07-16T17:51:10+0200	Bash	grep -rn "iconSuccess" /home/felix/Code/Vilocify/vilocify-frontend/node_modules/@siemens/ix-icons/dist/esm/icons.js 2>/dev/null | head -5
+2026-07-16T17:51:13+0200	Bash	find /home/felix/Code/Vilocify/vilocify-frontend/node_modules/@siemens/ix-icons -iname "icons.*js" 2>/dev/null
+2026-07-16T17:51:16+0200	Bash	find /home/felix/Code/Vilocify/vilocify-frontend/node_modules/@siemens/ix-icons -maxdepth 2 -type d
+find /home/felix/Code/Vilocify/vilocify-frontend/node_modules/@siemens/ix-icons -maxdepth 3 -iname "*.mjs" -o -iname "*.cjs" 2>/dev/null | head
+2026-07-16T17:51:19+0200	Bash	grep -n "iconSuccess\b" /home/felix/Code/Vilocify/vilocify-frontend/node_modules/@siemens/ix-icons/icons/index.mjs
+2026-07-16T17:54:06+0200	Bash	tail -20 /tmp/claude-ng-serve-vilocify-frontend.log
+2026-07-16T17:54:37+0200	Bash	grep -rn "app-membership-status-box" /home/felix/Code/Vilocify/vilocify-frontend/src --include=*.html
+2026-07-16T17:54:39+0200	Bash	grep -rln "app-membership-status-box" /home/felix/Code/Vilocify/vilocify-frontend/src
+2026-07-16T17:54:42+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/features/memberships/pages/memberships/memberships.component.html
+2026-07-16T17:54:45+0200	Bash	grep -n "membershipsLimit" /home/felix/Code/Vilocify/vilocify-frontend/src/app/features/memberships/pages/memberships/memberships.component.ts
+2026-07-16T17:54:49+0200	Bash	find /home/felix/Code/Vilocify/vilocify-frontend/src -iname "*memberships-limit*"
+2026-07-16T17:54:52+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/features/memberships/services/memberships-limit/memberships-limit.service.ts
+2026-07-16T17:55:00+0200	Bash	grep -rln "flash-message\|flashMessage" /home/felix/Code/Vilocify/vilocify-frontend/src | grep -v spec
+2026-07-16T17:55:04+0200	Bash	grep -n "flash-message\|flashMessage" /home/felix/Code/Vilocify/vilocify-frontend/src/app/core/components/content/content.component.html /home/felix/Code/Vilocify/vilocify-frontend/src/app/core/components/content/content.component.css /home/felix/Code/Vilocify/vilocify-frontend/src/app/core/components/pane-layout/pane-layout.component.html
+2026-07-16T17:55:14+0200	Bash	find /home/felix/Code/Vilocify/vilocify-frontend/node_modules/@siemens/ix -iname "*icon*" -path "*components*" 2>/dev/null | grep -v icons | head -20
+2026-07-16T17:55:21+0200	Bash	find /home/felix/Code/Vilocify/vilocify-frontend/node_modules/@siemens/ix-icons/dist/collection -iname "*icon.js*" 2>/dev/null
+2026-07-16T17:55:24+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/node_modules/@siemens/ix-icons/dist/collection/components/icon/icon.js
+2026-07-16T17:55:39+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/node_modules/@siemens/ix-icons/dist/collection/components/icon/resolveIcon.js
+2026-07-16T17:56:51+0200	Bash	find /home/felix/Code/Vilocify/vilocify-frontend/node_modules/@siemens/ix-angular -iname "*icon*" | grep -v spec | head -20
+2026-07-16T17:57:43+0200	Bash	grep -rn '\[name\]="' /home/felix/Code/Vilocify/vilocify-frontend/src --include=*.html 2>/dev/null
+echo ---
+grep -rln '\[name\]="' /home/felix/Code/Vilocify/vilocify-frontend/src 2>/dev/null | grep -v spec
+2026-07-16T17:57:49+0200	Bash	grep -rln '\[name\]=' /home/felix/Code/Vilocify/vilocify-frontend/src | grep -v spec
+2026-07-16T17:57:54+0200	Bash	grep -rn -B2 '\[name\]=' /home/felix/Code/Vilocify/vilocify-frontend/src/app/shared/components/card-icon-text/card-icon-text.component.html /home/felix/Code/Vilocify/vilocify-frontend/src/app/features/component-requests/components/component-request-status/component-request-status.component.html /home/felix/Code/Vilocify/vilocify-frontend/src/app/features/dashboard/components/organization-usage-tile/organization-usage-tile.component.html 2>/dev/null | grep -B3 "ix-icon"
+2026-07-16T17:57:58+0200	Bash	grep -n "statusIcon" /home/felix/Code/Vilocify/vilocify-frontend/src/app/features/component-requests/components/component-request-status/component-request-status.component.ts
+2026-07-16T18:00:55+0200	Bash	git log --oneline --all -i --grep="ix-icon\|icon.*race\|icon.*navigat\|no icon was provided" | head -20
+2026-07-17T11:57:24+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/features/memberships/components/membership-status-box/membership-status-box.component.html
+2026-07-17T11:57:31+0200	Bash	echo "=== selector app-icon ===" && grep -rn "selector: *['\"]app-icon" src/ ; echo "=== files with app-icon usage ===" && grep -rln "app-icon" src/ ; echo "=== @if guarding ix-icon (same pattern) ===" && grep -rln "@if.*statusType\|race where\|undefined name" src/
+2026-07-17T11:57:43+0200	Bash	echo "=== shared/components dirs ===" && ls src/app/shared/components/ && echo "=== card-pill files ===" && ls src/app/shared/components/card-pill/
+2026-07-17T11:57:49+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/shared/components/card-pill/card-pill.component.ts
+2026-07-17T11:57:49+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/shared/components/card-pill/card-pill.component.html
+2026-07-17T11:58:11+0200	Bash	echo "=== membership-status-box.css ===" && cat src/app/features/memberships/components/membership-status-box/membership-status-box.component.css 2>/dev/null; echo "=== does any component use signal input() vs @Input() in shared ==="; grep -rln "input(" src/app/shared/components/ | head; echo "=== OnPush in card-pill? ==="; grep -c "OnPush" src/app/shared/components/card-pill/card-pill.component.ts
+2026-07-17T11:58:37+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/shared/components/card-pill/card-pill.component.spec.ts
+2026-07-17T11:58:47+0200	Bash	echo "=== src/icons.ts head ===" && head -40 src/icons.ts; echo "=== lazy/async icon usage ==="; grep -rln "addIcon\|iconAsync\|loadIcon\|import(.*icon\|@siemens/ix-icons/icons" src/ | head -20
+2026-07-17T11:58:56+0200	Bash	echo "=== 'lazy' anywhere ==="; grep -rln "lazy\|Lazy" src/ | head; echo "=== tail of icons.ts ==="; tail -30 src/icons.ts; echo "=== distinct ix-icon attribute shapes (sample) ==="; grep -rhoE "<ix-icon[^>]*" src/ | grep -oE "(name=\"[a-z-]+\"|\\[name\\]=\"[^\"]+\")" | sort | uniq -c | sort -rn | head -20
+2026-07-17T11:59:01+0200	Bash	echo "=== card-icon-text.component.html ==="; cat src/app/shared/components/card-icon-text/card-icon-text.component.html; echo "=== error.component.html ==="; cat src/app/shared/components/error/error.component.html
+2026-07-27T07:45:42+0200	Bash	git --no-pager log --oneline main..HEAD && echo "---" && git --no-pager show --stat 037c2482
+2026-07-27T07:45:47+0200	Bash	git --no-pager show 037c2482
+2026-07-27T07:45:53+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/shared/services/list-state/abstract-resource-list-state.service.ts
+2026-07-27T07:46:11+0200	Bash	grep -rn "buildParams\|loadNextPage\|\.filter(" --include=*.ts src/app | grep -v "\.spec\.ts" | grep -vE "\.filter\(\((entry|item|x|e|c|p|t|s|n|f|k|v|i|_)"
+2026-07-27T07:46:14+0200	Bash	grep -rn "buildParams" src/app
+2026-07-27T07:46:19+0200	Bash	git --no-pager show 840ebcd4 --stat && echo "=== callers of listStateService.filter / loadNextPage ===" && grep -rn "\.filter(queryParams\|\.filter(params\|loadNextPage\|loadInitial()" src/app --include="*.ts" | grep -v abstract-resource-list-state
+2026-07-27T07:46:26+0200	Bash	git --no-pager show 840ebcd4 -- src/app/shared/services/list-state/abstract-resource-list-state.service.ts
+2026-07-27T07:46:37+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/features/api-tokens/pages/api-tokens/api-tokens.component.ts
+2026-07-27T07:46:42+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/shared/components/generic-list/generic-list.component.ts
+2026-07-27T07:46:55+0200	Bash	ls src/app/shared/services/list-state/ && grep -rn "untracked" src/app --include="*.ts" | head -20
+2026-07-27T07:50:42+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/features/inbox/pages/inbox/inbox.component.ts
+2026-07-27T07:52:08+0200	Bash	cat src/app/features/inbox/inbox-list-state.service.ts; echo "=== page size ==="; grep -rn "page\[size\]\|pageSize" src/app --include="*.ts" | grep -v spec
+2026-07-27T07:55:04+0200	Bash	grep -rln "createResourceClient\|jsonapiResource" src/app --include="*.spec.ts"; echo "=== inbox page spec setup ==="; ls src/app/features/inbox/pages/inbox/
+2026-07-27T07:55:09+0200	Bash	head -40 src/app/shared/jsonapi/client.ts; echo "=== spec setup ==="; head -35 src/app/shared/jsonapi/client.spec.ts
+2026-07-27T07:55:26+0200	Bash	grep -n '"@angular/core"' package.json; grep -rn "TestBed.tick()\|flushEffects\|tick()" src/app --include="*.spec.ts" | head -8; echo "=== providers.module ==="; grep -n "provideHttpTesting" -A6 src/app/shared/spec/providers.module.ts
+2026-07-27T07:56:03+0200	Bash	npx ng test --include='src/app/shared/services/list-state/abstract-resource-list-state.service.spec.ts' --watch=false --browsers=ChromeHeadlessNoSandbox 2>&1 | tail -20
+2026-07-27T07:58:01+0200	Bash	grep -rn "filterList\|(filter)\|filterValues\|mergeParams\|formValues" src/app/features/api-tokens/pages/api-tokens/* src/app/features/memberships/pages/memberships/* src/app/features/monitoring-lists/pages/* src/app/features/component-requests/pages/index/* src/app/features/inbox/pages/inbox/* 2>/dev/null | grep -v spec
+2026-07-27T07:58:10+0200	Bash	find src/app -path "*filter-pane*" -name "*.ts" -not -name "*.spec.ts" | head; echo "=== ==="; grep -rn "filterChange\|emit\|effect(\|formValues\|queryParams" $(find src/app/shared -path "*filter-pane*" -name "*.ts" -not -name "*.spec.ts") 2>/dev/null
+2026-07-27T07:58:17+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/shared/components/abstract-linkable-filter-pane/abstract-linkable-filter-pane.component.ts
+2026-07-27T07:58:28+0200	Bash	find src/app/core -name "formvalues*"; cat src/app/core/formvalues.ts 2>/dev/null || cat src/app/core/formvalues/*.ts 2>/dev/null | head -40
+2026-07-27T07:59:13+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/shared/components/resource-list/resource-list.component.ts
+2026-07-27T07:59:29+0200	Bash	grep -rn "asyncLoadNextPage" src/app; echo "=== does the client mutate params? ==="; grep -n "params" src/app/shared/jsonapi/client.ts | head -30
+2026-07-27T08:01:47+0200	Bash	grep -n "filterValues\|form\b\|hasActiveFilters" src/app/features/inbox/pages/inbox/inbox.component.html; echo "=== rxResource/httpResource usage in repo ==="; grep -rln "rxResource\|httpResource" src/app | head
+2026-07-27T08:19:15+0200	Read	/home/felix/Code/Vilocify/vilocify-frontend/src/app/shared/services/list-state/abstract-resource-list-state.service.ts
+2026-07-28T16:54:39+0200	Read	/home/felix/Code/Misc/ix-icon-lazy-route-repro/src/app/status-icon-box/status-icon-box.component.ts
+2026-07-28T16:54:39+0200	Read	/home/felix/Code/Misc/ix-icon-lazy-route-repro/src/app/page-b/page-b.component.ts
+2026-07-28T16:54:40+0200	Read	/home/felix/Code/Misc/ix-icon-lazy-route-repro/src/app/app.routes.ts
+2026-07-28T16:54:41+0200	Read	/home/felix/Code/Misc/ix-icon-lazy-route-repro/src/app/app.html
+2026-07-28T16:54:41+0200	Read	/home/felix/Code/Misc/ix-icon-lazy-route-repro/src/icons.ts
+2026-07-28T16:54:42+0200	Read	/home/felix/Code/Misc/ix-icon-lazy-route-repro/src/main.ts
+2026-07-28T16:54:42+0200	Read	/home/felix/Code/Misc/ix-icon-lazy-route-repro/src/app/page-a/page-a.component.ts
+2026-07-29T08:38:48+0200	Read	/home/felix/Code/Misc/ix-icon-verify/src/main.ts
+2026-07-29T08:39:34+0200	Read	/home/felix/Code/Misc/ix-icon-verify/src/app/app.ts
+2026-07-29T08:39:51+0200	Read	/home/felix/Code/Misc/ix-icon-verify/src/app/app.html
+2026-07-29T08:40:11+0200	Read	/home/felix/Code/Misc/ix-icon-verify/src/app/app.routes.ts
+2026-07-29T10:04:34+0200	Read	/home/felix/Code/Misc/ix-icon-verify/src/app/app.config.ts
+2026-07-29T10:25:27+0200	Read	/tmp/ix-icon-lazy-route-repro-serve.log
+2026-07-29T10:25:35+0200	Read	/tmp/ix-icon-lazy-route-repro-serve.log
+2026-07-29T10:26:41+0200	Bash	grep -n "polyfills\|zone" /home/felix/Code/Misc/ix-icon-lazy-route-repro/angular.json; echo "---app.config---"; cat /home/felix/Code/Misc/ix-icon-lazy-route-repro/src/app/app.config.ts
+2026-07-29T10:27:05+0200	Read	/home/felix/Code/Misc/ix-icon-lazy-route-repro/angular.json
+2026-07-29T13:36:05+0200	Bash	ls /home/felix/Code/Misc/ix-icon-verify/node_modules/@siemens/ix-icons/svg/ | grep -iE "^(star|bulb|alarm|add|checkboxes|cloud|rocket|heart|home|user)\.svg$"
+2026-07-29T13:36:12+0200	Read	/home/felix/Code/Misc/ix-icon-verify/src/index.html
+2026-07-29T13:36:31+0200	Read	/home/felix/Code/Misc/ix-icon-verify/angular.json
+2026-10-07T12:12:26+0200	Bash	cd /home/felix/Code/Vilocify/vilocify-frontend/node_modules && grep -m1 -H '"version"' @angular/{core,common,compiler,platform-browser,build,cli,compiler-cli}/package.json @siemens/{ix,ix-angular}/package.json {zone.js,rxjs,tslib,typescript}/package.json; ls ~/Code
+2026-10-27T14:14:49+0100	Bash	cd /home/felix/Code/Vilocify/vilocify-frontend && grep -rnE "\.(post|put|patch|delete)(<[^>]*>)?\(" src --include=*.ts | grep -v "spec.ts" | wc -l; grep -rnE "\.(post|put|patch)(<[^>]*>)?\([^,]+,\s*(\{\}|null|undefined)\s*[,)]" src --include=*.ts | grep -v spec.ts; grep -rnE "\.delete(<[^>]*>)?\([^)]*body" src --include=*.ts | grep -v spec.ts

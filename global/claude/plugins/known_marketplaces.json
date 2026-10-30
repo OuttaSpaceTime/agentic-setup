@@ -1,0 +1,18 @@
+{
+  "claude-plugins-official": {
+    "source": {
+      "source": "github",
+      "repo": "anthropics/claude-plugins-official"
+    },
+    "installLocation": "/home/felix/.claude/plugins/marketplaces/claude-plugins-official",
+    "lastUpdated": "2026-10-30T05:28:06.905Z"
+  },
+  "nteract-plugins": {
+    "source": {
+      "source": "directory",
+      "path": "/home/felix/Code/Misc/nteract/.claude/plugins"
+    },
+    "installLocation": "/home/felix/Code/Misc/nteract/.claude/plugins",
+    "lastUpdated": "2026-09-22T20:00:26.043Z"
+  }
+}

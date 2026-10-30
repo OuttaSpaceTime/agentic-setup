@@ -1,0 +1,14 @@
+id = "vilocify.worktrees"
+name = "Vilocify Worktrees"
+version = "0.1.0"
+min_herdr_version = "0.9.1"
+description = "Provision and tear down per-worktree Vilocify databases"
+platforms = ["linux"]
+
+[[events]]
+on = "worktree.created"
+command = ["sh", "bin/worktree_created.sh"]
+
+[[events]]
+on = "worktree.removed"
+command = ["sh", "bin/worktree_removed.sh"]

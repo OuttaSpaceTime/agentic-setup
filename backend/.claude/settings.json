@@ -1,0 +1,55 @@
+{
+  "effortLevel": "high",
+  "autoDreamEnabled": false,
+  "promptSuggestionEnabled": false,
+  "worktree": {
+    "symlinkDirectories": [
+      ".claude"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/block-handwritten-migrations.sh\""
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/block-inline-reek.sh\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/prefer-fixtures.sh\""
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(bin/rails test:*)",
+      "Bash(bundle exec rake:*)",
+      "Bash(bin/openapi-diff)",
+      "Bash(bin/oasdiff)",
+      "Bash(bin/rails db:migrate:*)"
+    ],
+    "deny": [
+      "Bash(npx editorconfig-checker:*)"
+    ]
+  }
+}

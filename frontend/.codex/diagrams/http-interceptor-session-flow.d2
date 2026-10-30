@@ -1,0 +1,87 @@
+direction: right
+
+vars: {
+  d2-config: {
+    theme-id: 300
+  }
+}
+
+request_path: {
+  label: "Request Path (configured in main.ts)"
+  shape: rectangle
+
+  component: "Feature Component/Service"
+  httpClient: "HttpClient request"
+  refresh: "refreshSessionInterceptor"
+  defaultHeaders: "defaultHeadersInterceptor"
+  logout401: "logoutOn401 interceptor"
+  credit: "creditEnforcementInterceptor"
+  serverError: "redirectOnServerError interceptor"
+  backend: "Backend API"
+
+  component -> httpClient
+  httpClient -> refresh
+
+  refreshBypass: "request.url === /api/v2/sessions/current"
+  refreshStale: "CurrentSession.isStale() === true"
+  refreshFresh: "CurrentSession.isStale() === false"
+  refreshFetch: "SessionHttpService.show('current')"
+  refreshSet: "CurrentSession.setCurrentSession(session)"
+
+  refresh -> refreshBypass: check current-session endpoint
+  refreshBypass -> defaultHeaders: true (bypass refresh)
+  refreshBypass -> refreshStale: false
+  refreshStale -> refreshFetch
+  refreshFetch -> refreshSet
+  refreshSet -> defaultHeaders: continue original request
+  refreshStale -> refreshFresh: false branch
+  refreshFresh -> defaultHeaders
+
+  defaultHeaders -> logout401: set credentials + JSON:API headers
+  logout401 -> credit
+  credit -> serverError
+  serverError -> backend
+}
+
+response_path: {
+  label: "Response/Error Path (reverse through interceptors)"
+  shape: rectangle
+
+  backendResponse: "Backend response/error"
+  serverErrorCatch: "redirectOnServerError\n(timeout 10s + catchError)"
+  creditCatch: "creditEnforcement\n(catchError 402/meta.betaConsumption)"
+  logoutCatch: "logoutOn401\n(catchError 401)"
+  success: "Response reaches caller"
+
+  err401: "401 -> ExternalNavigationService.toLogout()\nreturn EMPTY"
+  err402: "402 + remaining=0 -> navigate('/402')\nreturn EMPTY"
+  err500: "Any unhandled error/timeout -> navigate('/500')\nrethrow"
+
+  backendResponse -> serverErrorCatch
+  serverErrorCatch -> creditCatch: success or rethrown error
+  creditCatch -> logoutCatch: success or rethrown error
+  logoutCatch -> success: non-401 or successful response
+
+  serverErrorCatch -> err500: no CUSTOM_ERROR_HANDLING + error/timeout
+  creditCatch -> err402: when 402 and consumption exhausted
+  logoutCatch -> err401: when status === 401
+
+  success: {
+    shape: oval
+    style.fill: "#E6FFEE"
+  }
+  err401: {
+    shape: oval
+    style.fill: "#FFE7E7"
+  }
+  err402: {
+    shape: oval
+    style.fill: "#FFF2D5"
+  }
+  err500: {
+    shape: oval
+    style.fill: "#FFE7E7"
+  }
+}
+
+request_path.backend -> response_path.backendResponse

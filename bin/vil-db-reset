@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd "$(git rev-parse --show-toplevel)"
+
+base=main
+branch_fixtures=0
+force=0
+for arg in "$@"; do
+  case "$arg" in
+    --branch-fixtures) branch_fixtures=1 ;;
+    --force) force=1 ;;
+    *) base="$arg" ;;
+  esac
+done
+
+for state in rebase-merge rebase-apply MERGE_HEAD CHERRY_PICK_HEAD REVERT_HEAD; do
+  if [[ -e "$(git rev-parse --git-path "$state")" ]]; then
+    echo "vil-db-reset: $state in progress — the branch switch cannot work here." >&2
+    echo "  Finish or abort it (git rebase --abort / --continue) and rerun." >&2
+    exit 1
+  fi
+done
+
+if [[ -n "$(git status --porcelain --untracked-files=no)" ]]; then
+  echo "vil-db-reset: working tree dirty — commit or stash before switching to $base." >&2
+  git status --short --untracked-files=no >&2
+  exit 1
+fi
+
+git fetch --quiet origin "$base"
+
+if ! git merge-base --is-ancestor "origin/$base" "$base"; then
+  echo "vil-db-reset: origin/$base has commits local $base lacks — its schema is stale." >&2
+  echo "  Update $base and rebase this branch onto it, then rerun." >&2
+  exit 1
+fi
+
+if ! git merge-base --is-ancestor "$base" HEAD; then
+  if [[ $force -eq 0 ]]; then
+    echo "vil-db-reset: $base is not an ancestor of HEAD — the branches have diverged," >&2
+    echo "  so its schema and fixtures may not match this branch." >&2
+    echo "  Rebase onto $base, or rerun with --force." >&2
+    exit 1
+  fi
+  echo "vil-db-reset: warning — $base is not an ancestor of HEAD, forcing anyway." >&2
+fi
+
+current_ref() { git symbolic-ref --quiet --short HEAD || git rev-parse HEAD; }
+start="$(current_ref)"
+
+return_to_start() {
+  [[ "$(current_ref)" == "$start" ]] || git checkout "$start"
+}
+trap return_to_start EXIT
+
+# Worktrees run isolated databases via a --skip-worktree config/database.yml
+# (see the create-worktree skill), so resolve the actual dev database name from
+# Rails rather than hardcoding it. The container is shared across all worktrees.
+dev_db="$(bin/rails runner -e development 'print ActiveRecord::Base.connection_db_config.database' 2>/dev/null)"
+
+echo
+docker exec vilocifyportal-postgres-1 psql -U postgres -c \
+  "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '${dev_db}' AND pid <> pg_backend_pid();" \
+  2>/dev/null || true
+
+echo
+git checkout --detach "$base"
+
+echo
+bin/rails db:drop db:create db:schema:load db:fixtures:load
+
+echo
+echo "vil-db-reset: loaded $base fixtures into ${dev_db}"
+echo
+
+git checkout "$start"
+
+echo
+bin/rails db:migrate
+
+if [[ $branch_fixtures -eq 1 ]]; then
+  echo
+  bin/rails db:fixtures:load
+
+  echo
+  echo "vil-db-reset: loaded $start fixtures into ${dev_db}"
+fi
+
+echo

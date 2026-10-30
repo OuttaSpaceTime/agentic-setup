@@ -1,0 +1,211 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
+  "permissions": {
+    "allow": [
+      "Bash(solve-allow list)",
+      "Bash(solveit-health:*)",
+      "Bash(bin/rails test:*)",
+      "Bash(bin/rails db:migrate:status:*)",
+      "Bash(bundle exec rubocop:*)",
+      "Bash(bundle show:*)",
+      "Bash(npx ng test:*)",
+      "Bash(npx ng lint:*)",
+      "Bash(scripts/srs-pressure:*)",
+      "Bash(scripts/wiki-due:*)",
+      "Bash(scripts/anki-sync:*)",
+      "Bash(scripts/study-calibration:*)",
+      "WebSearch",
+      "WebFetch"
+    ],
+    "defaultMode": "auto"
+  },
+  "model": "opus",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ~/.claude/solveit/hooks/solve-init.py"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.local/bin/kitty-agent-title claude"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ~/.claude/solveit/hooks/edit-guard.py"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ~/.claude/solveit/hooks/bash-guard.py"
+          }
+        ]
+      },
+      {
+        "matcher": "Read|Grep|Glob",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ~/.claude/solveit/hooks/log-reads.py"
+          }
+        ]
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.local/bin/kitty-agent-title claude"
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.local/bin/kitty-agent-title claude"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/chezmoi-guard.sh"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ~/.claude/solveit/hooks/stop-affordance-guard.py"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.local/bin/kitty-agent-title claude"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "^(startup|resume|clear|compact|fork)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash '/home/felix/.claude/hooks/herdr-agent-state.sh' session",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.local/bin/kitty-agent-title claude"
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash /home/felix/.claude/statusline-script.sh"
+  },
+  "enabledPlugins": {
+    "ruby-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "skill-creator@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": false,
+    "code-simplifier@claude-plugins-official": false
+  },
+  "outputStyle": "solveit",
+  "effortLevel": "xhigh",
+  "modelSettings": {
+    "claude-opus-5": {
+      "effortLevel": "xhigh"
+    },
+    "claude-sonnet-5": {
+      "effortLevel": "xhigh"
+    },
+    "claude-opus-5-5": {
+      "effortLevel": "high"
+    },
+    "claude-sonnet-5-5": {
+      "effortLevel": "xhigh"
+    }
+  },
+  "advisorModel": "opus",
+  "promptSuggestionEnabled": false,
+  "tui": "fullscreen",
+  "autoDreamEnabled": true,
+  "skipDangerousModePermissionPrompt": true,
+  "skipWorkflowUsageWarning": true,
+  "theme": "custom:light-high-contrast",
+  "editorMode": "vim",
+  "verbose": false,
+  "preferredNotifChannel": "kitty",
+  "skipAutoPermissionPrompt": true,
+  "autoMode": {
+    "environment": [
+      "### Org-wide",
+      "**Organization**: None configured",
+      "**Cloud provider(s)**: None configured",
+      "**Repository visibility**: Not queryable via gh (origin uses a custom SSH host alias `github.com-personal`, not a plain owner/repo URL); assume private unless shown otherwise — repo appears personal (dotfiles/config repo under OuttaSpaceTime/master-terminal)",
+      "**Internal sharing / snippet hosting**: None configured — treat public paste/gist services as outside the trust boundary",
+      "**Secrets management**: None configured",
+      "**Default / protected branches**: main (default branch per repo facts); protection status not queryable via gh for this remote",
+      "**CI/CD deploy targets**: None configured",
+      "**Network posture**: None configured",
+      "**Host containment**: None configured — assume Claude Code runs on an ordinary developer machine or CI runner with open internet",
+      "**Source control**: The trusted repo (github.com-personal:OuttaSpaceTime/master-terminal.git) and its remote(s) only (no additional orgs configured)",
+      "**Trusted internal domains**: None configured",
+      "**Trusted cloud buckets**: None configured",
+      "**Key internal services**: None configured",
+      "**Internal package registry**: None configured",
+      "**Sensitive data locations & audiences**: any file or store holding personal data, confidential business data, credentials, regulated data, or similarly sensitive material; preserve exact handles when known and share only with audiences cleared at the [named+specifics] bar",
+      "**Data retention / declassification**: None configured",
+      "**Sensitive remote targets**: any namespace, host, or container whose name carries `prod` or `production` as a whole word or name segment",
+      "**Protected deployment namespaces / environments**: None configured — fall back to the Sensitive remote targets heuristic",
+      "**Protected IaC scopes**: IAM, RBAC, networking, quota, and node-pool resources; anything whose name or tag carries `prod` or `production` as a whole word or name segment",
+      "### User-specific",
+      "**Primary use of Claude Code**: dotfiles management, terminal/editor configuration, and a personal wiki for this workflow repo (master-terminal), managed via chezmoi",
+      "**Trusted repo**: /home/felix/Code/Misc/master-terminal (remote: github.com-personal:OuttaSpaceTime/master-terminal.git) — routine chezmoi source edits under home/ and wiki/ within this repo",
+      "**Org-specific CLIs**: None configured — chezmoi, nvim, uv, gnome-extensions, gsettings are routine personal-workflow tools observed in this project but not org-specific"
+    ]
+  },
+  "voiceEnabled": true
+}

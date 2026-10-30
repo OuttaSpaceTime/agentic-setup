@@ -1,0 +1,21 @@
+#!/usr/bin/env sh
+
+cd "$(dirname "$0")/.."
+
+if [ ! -x bin/reek ] || [ ! -f lib/tasks/flay.rake ] || [ ! -f lib/tasks/flog.rake ]; then
+  echo 'bin/quality needs bin/reek and the flay/flog rake tasks, which this branch does not have. Rebase onto main.' >&2
+  exit 1
+fi
+
+status=0
+
+echo '== Antipatterns (reek) =='
+bundle exec reek $(git ls-files --cached --others --exclude-standard -- 'app/*.rb' 'lib/*.rb' 'config/*.rb' 'test/*.rb') || status=1
+
+echo '== Duplication (flay) =='
+bundle exec rake flay:check || status=1
+
+echo '== Method complexity (flog) =='
+bundle exec rake flog:check || status=1
+
+exit "$status"
